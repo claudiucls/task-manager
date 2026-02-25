@@ -3,6 +3,7 @@ package dev.claudiu_software.taskmanager.controller;
 import dev.claudiu_software.taskmanager.entity.Task;
 import dev.claudiu_software.taskmanager.repository.TaskRepository;
 import dev.claudiu_software.taskmanager.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +33,13 @@ public class TaskController {
 
     }
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
         Task savedTask = taskService.createTask(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
     }
 
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable Long id, @RequestBody Task updatedTask ) {
+    public Task updateTask(@PathVariable Long id,@Valid @RequestBody Task updatedTask ) {
         return taskService.updateTask(id, updatedTask);
     }
 
